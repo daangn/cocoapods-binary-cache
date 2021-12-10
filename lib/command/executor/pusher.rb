@@ -25,10 +25,14 @@ module PodPrebuild
       Pod::UI.puts "Skip pushing cache as you're using local cache".yellow
     end
 
+    def checkout
+      git("checkout -b #{@cache_branch}", ignore_output: true, can_fail: true)
+    end
+
     def commit_and_push_cache
       commit_message = "Update prebuilt cache"
       git("add .")
-      git("commit -m '#{commit_message}'")
+      git("commit -m '#{commit_message}'", can_fail: true)
       git("push origin #{@cache_branch}")
     end
   end

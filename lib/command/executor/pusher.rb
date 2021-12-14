@@ -14,6 +14,7 @@ module PodPrebuild
         if @config.local_cache?
           print_message_for_local_cache
         else
+          checkout
           commit_and_push_cache
         end
       end

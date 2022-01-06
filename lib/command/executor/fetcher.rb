@@ -40,7 +40,7 @@ module PodPrebuild
         begin
           git("fetch origin #{branch}")
         rescue
-          git("fetch --depth 5 origin", can_fail: true)
+          git("fetch --depth 10 origin", can_fail: true)
         end
         git("checkout -f FETCH_HEAD", ignore_output: true)
         git("branch -D #{branch}", ignore_output: true, can_fail: true)

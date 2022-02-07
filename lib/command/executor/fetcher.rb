@@ -39,10 +39,8 @@ module PodPrebuild
       if Dir.exist?(dest_dir + "/.git")
         begin
           git("fetch origin #{branch}")
-        rescue
-          git("fetch --depth 10 origin", can_fail: true)
+          git("checkout -f FETCH_HEAD", ignore_output: true)
         end
-        git("checkout -f FETCH_HEAD", ignore_output: true)
         git("branch -D #{branch}", ignore_output: true, can_fail: true)
         git("checkout -b #{branch}")
       else

@@ -40,9 +40,11 @@ module PodPrebuild
         begin
           git("fetch origin #{branch}")
           git("checkout -f FETCH_HEAD", ignore_output: true)
+        rescue
+          Pod::UI.puts "Couldn't find #{branch}".yellow
         end
         git("branch -D #{branch}", ignore_output: true, can_fail: true)
-        git("checkout -b #{branch}")
+        git("checkout -b #{branch}", can_fail: true)
       else
         FileUtils.rm_rf(dest_dir)
         begin
